@@ -1,6 +1,9 @@
 import tkinter as tk
-from tkinter import ttk 
+from tkinter import ttk
+
+from matplotlib.pyplot import table 
 from Libraries.connector import connector
+import sys
 """
 Features Information
 Connector:
@@ -28,15 +31,18 @@ class application():
         self.root.geometry("800x600")
         self.root.configure()
         self.root.resizable(False,False)
+        self.connecteDevices =[]
         self.allFeature = []
         self.connectorFeature = []
         self.fileFeature = []
     def buildMain(self):
         self.menuMatch = tk.Button(self.root,text="FileMathcer",command=self.buildFile)
         self.menuConn = tk.Button(self.root,text="Connector",command=self.buildConnector) 
+        self.label_C1 = tk.Label(self.root,text="ZeroCondition")
     def placeMain(self):
         self.menuMatch.place(x=0,y=0)
         self.menuConn.place(x=75,y=0)
+        self.label_C1.place(x=150,y=0)
     def buildConnector(self):
         self.cleaner(self.fileFeature)
         self.label_A1 = tk.Label(self.root,text="   HostName")
@@ -48,22 +54,38 @@ class application():
         self.connectorFeature.append(self.label_A3)
         self.connectorFeature.append(self.label_A4)
         #
+        self.table = ttk.Treeview(self.root,selectmode="browse",columns=("1","2","3","4"))
         self.entry_A1 = tk.Entry(self.root)
         self.entry_A1.insert(0,str(self.conn.hostName))
         self.entry_A2 = tk.Entry(self.root)
         self.entry_A2.insert(0,str(self.conn.IP))
-        self.entry_A3 = tk.Entry(self.root)
+        self.data = tk.IntVar()
+        self.entry_A3 = tk.Entry(self.root,textvariable=self.data)
         self.entry_A3.insert(0,str(self.conn.port))  
         self.connectorFeature.append(self.entry_A1)
         self.connectorFeature.append(self.entry_A2)
         self.connectorFeature.append(self.entry_A3)
         #
-        self.button_A1 = tk.Button(self.root,text="Make Server",width=10)
-        self.button_A2 = tk.Button(self.root,text="Accept",width=6)
-        self.button_A3 = tk.Button(self.root,text="Close",width=6)
+        self.button_A1 = tk.Button(self.root,text="Make Server",width=10,command=lambda:self.conn.makeServer(self.label_C1))
+        self.button_A2 = tk.Button(self.root,text="Accept",width=6,command=lambda:self.conn.acceptThreading(self.label_C1,self.table,self.connecteDevices,int(self.entry_A3.get())))
+        self.button_A3 = tk.Button(self.root,text="Close",width=6,command=self.conn.close)
         self.connectorFeature.append(self.button_A1)
         self.connectorFeature.append(self.button_A2)
         self.connectorFeature.append(self.button_A3)
+        #
+
+        self.table.column('#0', width=0, stretch=tk.NO)
+        self.table.column('1', width=80)
+        self.table.column('2', width=80)
+        self.table.column('3', width=200)
+        self.table.column('4', width=200)
+        self.table.heading("1",text="Object",anchor=tk.CENTER)
+        self.table.heading("3",text="IP",anchor=tk.CENTER)
+        self.table.heading("4",text="HostName",anchor=tk.CENTER)
+        self.table.heading("2",text="Port",anchor=tk.CENTER)
+        if len(self.connecteDevices) !=0:
+            pass
+        self.connectorFeature.append(table)
         self.placeConnector()
     def buildFile(self):
         self.cleaner(self.connectorFeature)
@@ -79,6 +101,7 @@ class application():
         self.button_A1.place(x=10,y=120)
         self.button_A2.place(x=95,y=120)
         self.button_A3.place(x=150,y=120)
+        self.table.place(x=220,y=60)
         self.root.update()
     def placeFile(self):
         self.root.update()
@@ -98,5 +121,6 @@ if __name__ == "__main__":
     app.buildMain()
     app.placeMain()
     app.destroy()
+    sys.exit()
 
 
