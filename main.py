@@ -33,7 +33,7 @@ class application():
         self.root.resizable(False,False)
         self.trustedDevices = []
         self.connecteDevices =[]
-        self.objectConnected = None
+        self.objectConnected = "Not Connected"
         self.allFeature = []
         self.connectorFeature = []
         self.fileFeature = []
@@ -55,6 +55,7 @@ class application():
         self.label_A6 = tk.Label(self.root,text="   IP")
         self.label_A7 = tk.Label(self.root,text="   Port")
         self.label_A8 = tk.Label(self.root,text="OtherDevices:")
+        self.label_A9 = tk.Label(self.root,text=self.objectConnected)
         self.connectorFeature.append(self.label_A1)
         self.connectorFeature.append(self.label_A2)
         self.connectorFeature.append(self.label_A3)
@@ -63,6 +64,7 @@ class application():
         self.connectorFeature.append(self.label_A6)
         self.connectorFeature.append(self.label_A7)
         self.connectorFeature.append(self.label_A8)
+        self.connectorFeature.append(self.label_A9)
         #
         self.table = ttk.Treeview(self.root,selectmode="browse",columns=("1","2","3","4"))
         self.table2 = ttk.Treeview(self.root,selectmode="browse",columns=("1","2","3","4"))
@@ -93,10 +95,10 @@ class application():
         self.button_A2 = tk.Button(self.root,text="Accept",width=6,command=lambda:self.conn.acceptThreading(self.label_C1,self.table,self.connecteDevices,int(self.entry_A3.get())))
         self.button_A3 = tk.Button(self.root,text="Close",width=6,command=self.conn.close)
         self.button_A4 = tk.Button(self.root,text="Make Client",command=self.conn.makeClient)
-        self.button_A5 = tk.Button(self.root,text="Connect",command=lambda:self.conn.connect(self.entry_A4.get(),self.entry_A5.get(),int(self.entry_A6.get()),self.objectConnected))
+        self.button_A5 = tk.Button(self.root,text="Connect",command=lambda:self.conn.connect(self.entry_A4.get(),self.entry_A5.get(),int(self.entry_A6.get()),self.label_A9,self.objectConnected))
         self.button_A6 = tk.Button(self.root,text="Trust",command=self.trust)
         self.button_A7 = tk.Button(self.root,text="Untrust",command=self.untrust)
-        self.button_A8 = tk.Button(self.root,text="Add")
+        self.button_A8 = tk.Button(self.root,text="Add",command=self.add)
         self.connectorFeature.append(self.button_A1)
         self.connectorFeature.append(self.button_A2)
         self.connectorFeature.append(self.button_A3)
@@ -136,7 +138,7 @@ class application():
         self.placeConnector()
     def buildFile(self):
         self.cleaner(self.connectorFeature)
-        self.placeFile
+        self.placeFile()
     def untrust(self):
         selected_item = self.table2.selection()[0]
         self.table2.delete(selected_item)
@@ -145,6 +147,11 @@ class application():
         self.trustedDevices.append(list(self.table.item(selected,"values")))
         self.table2.insert("",tk.END,tk.END,values=self.table.item(selected,"values"))
         self.table2.update()
+    def add(self):
+        with open("trustedDevices.txt","a") as file:
+            selected = self.table.focus()
+            data= list(self.table.item(selected,"values"))[-1]
+            file.write(str(data)+"\n")
     def placeConnector(self):
         self.label_A1.place(x=0,y=60)
         self.label_A2.place(x=0,y=100)
@@ -154,6 +161,7 @@ class application():
         self.label_A6.place(x=0,y=210)
         self.label_A7.place(x=0,y=190)
         self.label_A8.place(x=0,y=150)
+        self.label_A9.place(x=120,y=150)
         self.entry_A1.place(x=80,y=60)
         self.entry_A3.place(x=80,y=80)
         self.entry_A2.place(x=80,y=100)

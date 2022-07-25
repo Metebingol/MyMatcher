@@ -47,8 +47,10 @@ class connector():
         self.ip_v4 = sc.AF_INET
         self.tcp = sc.SOCK_STREAM
         self.clinetSocket = sc.socket(self.ip_v4,self.tcp)
-    def connect(self,HostName,IP,port,object:sc.socket):
+    def connect(self,HostName,IP,port,feature:tk.Label,condition):
         ipCheck = sc.gethostbyname(HostName)
         if ipCheck == IP:
             self.clinetSocket.connect((IP,port))
-            object = self.clinetSocket
+            condition = "Connected"
+            feature.configure(text=condition)
+            feature.update
