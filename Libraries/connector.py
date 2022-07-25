@@ -3,7 +3,6 @@ import tkinter as tk
 import threading as tr
 import sys
 from tkinter import ttk
-from cv2 import add
 
 
 class connector():
@@ -44,3 +43,13 @@ class connector():
     def close(self):
         if self.a.is_alive():
             self.a.join()
+    def makeClient(self):
+        self.ip_v4 = sc.AF_INET
+        self.tcp = sc.SOCK_STREAM
+        self.clinetSocket = sc.socket(self.ip_v4,self.tcp)
+    def connect(self,HostName,IP,port,object:sc.socket):
+        ipCheck = sc.gethostbyname(HostName)
+        print(ipCheck)
+        if ipCheck == IP:
+            self.clinetSocket.connect((IP,port))
+            object = self.clinetSocket
