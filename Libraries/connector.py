@@ -49,7 +49,6 @@ class connector():
         self.clinetSocket = sc.socket(self.ip_v4,self.tcp)
     def connect(self,HostName,IP,port,object:sc.socket):
         ipCheck = sc.gethostbyname(HostName)
-        print(ipCheck)
         if ipCheck == IP:
             self.clinetSocket.connect((IP,port))
             object = self.clinetSocket
