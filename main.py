@@ -1,7 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-
-from requests import delete
 from Libraries.connector import connector
 import sys
 """
@@ -37,6 +35,7 @@ class application():
         self.allFeature = []
         self.connectorFeature = []
         self.fileFeature = []
+        self.listServer = []
     def buildMain(self):
         self.menuMatch = tk.Button(self.root,text="FileMathcer",command=self.buildFile)
         self.menuConn = tk.Button(self.root,text="Connector",command=self.buildConnector) 
@@ -95,7 +94,7 @@ class application():
         self.button_A2 = tk.Button(self.root,text="Accept",width=6,command=lambda:self.conn.acceptThreading(self.label_C1,self.table,self.connecteDevices,int(self.entry_A3.get())))
         self.button_A3 = tk.Button(self.root,text="Close",width=6,command=self.conn.close)
         self.button_A4 = tk.Button(self.root,text="Make Client",command=self.conn.makeClient)
-        self.button_A5 = tk.Button(self.root,text="Connect",command=lambda:self.conn.connect(self.entry_A4.get(),self.entry_A5.get(),int(self.entry_A6.get()),self.label_A9,self.objectConnected))
+        self.button_A5 = tk.Button(self.root,text="Connect",command=lambda:self.conn.connect(self.entry_A4.get(),self.entry_A5.get(),int(self.entry_A6.get()),self.label_A9,self.objectConnected,self.listServer,self.table2))
         self.button_A6 = tk.Button(self.root,text="Trust",command=self.trust)
         self.button_A7 = tk.Button(self.root,text="Untrust",command=self.untrust)
         self.button_A8 = tk.Button(self.root,text="Add",command=self.add)
@@ -137,6 +136,22 @@ class application():
         self.connectorFeature.append(self.table2)
         self.placeConnector()
     def buildFile(self):
+        self.label_B1 = tk.Label(self.root,text="Server:")
+        self.label_B3 = tk.Label(self.root,text="   Port:")
+        self.label_B4 = tk.Label(self.root,text="   HostName:")
+        self.label_B5 = tk.Label(self.root,text="   IP:")
+        self.label_B2 = tk.Label(self.root,text="Client:")
+        self.label_B6 = tk.Label(self.root,text="   Port:")
+        self.label_B7 = tk.Label(self.root,text="   HostName:")
+        self.label_B8 = tk.Label(self.root,text="   IP:")
+        self.fileFeature.append(self.label_B1)
+        self.fileFeature.append(self.label_B2)
+        self.fileFeature.append(self.label_B3)
+        self.fileFeature.append(self.label_B4)
+        self.fileFeature.append(self.label_B5)
+        self.fileFeature.append(self.label_B6)
+        self.fileFeature.append(self.label_B7)
+        self.fileFeature.append(self.label_B8) 
         self.cleaner(self.connectorFeature)
         self.placeFile()
     def untrust(self):
@@ -148,7 +163,7 @@ class application():
         self.table2.insert("",tk.END,tk.END,values=self.table.item(selected,"values"))
         self.table2.update()
     def add(self):
-        with open("trustedDevices.txt","a") as file:
+        with open("MyMatcher/trustedDevices.txt","a") as file:
             selected = self.table.focus()
             data= list(self.table.item(selected,"values"))[-1]
             file.write(str(data)+"\n")
@@ -180,6 +195,14 @@ class application():
         self.table2.place(x=220,y=320)
         self.root.update()
     def placeFile(self):
+        self.label_B1.place(x=10,y=40)
+        self.label_B2.place(x=10,y=120)
+        self.label_B3.place(x=10,y=60)
+        self.label_B4.place(x=10,y=80)
+        self.label_B5.place(x=10,y=100)
+        self.label_B6.place(x=10,y=140)
+        self.label_B7.place(x=10,y=160)
+        self.label_B8.place(x=10,y=180)
         self.root.update()
     def cleaner(self,listFeatures:list):
         for i in listFeatures:

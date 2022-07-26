@@ -1,2 +1,0 @@
-["<socket.socket fd=1016, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('192.168.0.29', 800), raddr=('192.168.0.29', 51187)>", '51187', '192.168.0.29', 'DESKTOP-E5S1MHN']
-["<socket.socket fd=996, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('192.168.0.29', 800), raddr=('192.168.0.29', 51210)>", '51210', '192.168.0.29', 'DESKTOP-E5S1MHN']

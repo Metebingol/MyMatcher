@@ -1,3 +1,4 @@
+from pydoc import cli
 import socket as sc
 import tkinter as tk
 import threading as tr
@@ -47,10 +48,18 @@ class connector():
         self.ip_v4 = sc.AF_INET
         self.tcp = sc.SOCK_STREAM
         self.clinetSocket = sc.socket(self.ip_v4,self.tcp)
-    def connect(self,HostName,IP,port,feature:tk.Label,condition):
+    def connect(self,HostName,IP,port,feature:tk.Label,condition,listServer:list,table:ttk.Treeview):
         ipCheck = sc.gethostbyname(HostName)
         if ipCheck == IP:
-            self.clinetSocket.connect((IP,port))
-            condition = "Connected"
-            feature.configure(text=condition)
-            feature.update
+            try:
+                self.clinetSocket.connect((IP,port))
+                print(self.clinetSocket)
+                listServer.append(self.clinetSocket)
+                condition = "Connected"
+                feature.configure(text=condition)
+                feature.update
+                table.insert("",tk.END,values=(listServer[-1],port,IP,HostName+"(Server)"))
+            except:
+                condition = "Not Connected"
+                feature.configure(text=condition)
+                feature.update
