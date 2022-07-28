@@ -11,6 +11,7 @@ class database():
         self.filerFeature = []
         self.hostname = gethostname()
         self.IP = gethostbyname(self.hostname)
+        self.port = "80"
 
 
 

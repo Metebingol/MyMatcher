@@ -5,12 +5,14 @@ from tkinter import Entry
 from tkinter import Button
 from tkinter import ttk
 from tkinter import StringVar
-
+from communcation.Networking import server
+from tkinter import Text
 
 class guiConnector():
     def __init__(self,root:Tk,data:database) -> None:
         self.root = root
         self.data = data
+        self.server = server()
     def build(self):
         for feature in self.data.filerFeature:
             feature.destroy()
@@ -27,11 +29,14 @@ class guiConnector():
         self.data.connectorFeature.append(self.label_A5)
         string = StringVar()
         self.entry_A1 = Entry(self.root,textvariable=string,borderwidth=0,border=0)
+        self.entry_A1.insert("0",self.data.port)
         self.data.connectorFeature.append(self.entry_A1)
-        self.button_A1 = Button(self.root,text="Make Server",width=10,bg="white")
+        self.button_A1 = Button(self.root,text="Make Server",width=10,bg="white",command=lambda:self.server.makeServer(self.text))
         self.data.connectorFeature.append(self.button_A1)
-        self.button_A2 = Button(self.root,text="Accept",width=10,bg="white")
+        self.button_A2 = Button(self.root,text="Accept",width=10,bg="white",command=lambda:self.server.acceptThread(self.entry_A1,self.data,self.text))
         self.data.connectorFeature.append(self.button_A2)
+        self.text = Text(self.root,width=25,height=15)
+        self.data.connectorFeature.append(self.text)
         self.place()
     def place(self):
         self.label_A1.place(x=5,y=25)
@@ -42,3 +47,4 @@ class guiConnector():
         self.entry_A1.place(x=60,y=155)
         self.button_A1.place(x=10,y=180)
         self.button_A2.place(x=100,y=180)
+        self.text.place(x=5,y=350)
