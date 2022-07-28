@@ -13,6 +13,7 @@ class database():
         self.IP = gethostbyname(self.hostname)
         self.port = "80"
         self.clientConnected = [] 
+        self.serverConnected = []
 
 
 
