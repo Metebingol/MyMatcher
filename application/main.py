@@ -1,4 +1,3 @@
-import imp
 from tkinter import Tk
 from database.database import database
 from userInterface.gui3 import mainRoot
