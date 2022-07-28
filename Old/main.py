@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from Libraries.connector import connector
+from Old.Libraries.connector import connector
 import sys
 """
 Features Information
@@ -132,8 +132,6 @@ class application():
             for i in self.trustedDevices:
                 self.table2.insert("",tk.END,values=tuple(i))
             self.table2.update()        
-        self.connectorFeature.append(self.table)
-        self.connectorFeature.append(self.table2)
         self.placeConnector()
     def buildFile(self):
         self.label_B1 = tk.Label(self.root,text="Server:")
@@ -144,6 +142,8 @@ class application():
         self.label_B6 = tk.Label(self.root,text="   Port:")
         self.label_B7 = tk.Label(self.root,text="   HostName:")
         self.label_B8 = tk.Label(self.root,text="   IP:")
+        self.label_B9 = tk.Label(self.root,text="Server:")
+        self.label_B10 = tk.Label(self.root,text="Client:")
         self.fileFeature.append(self.label_B1)
         self.fileFeature.append(self.label_B2)
         self.fileFeature.append(self.label_B3)
@@ -151,7 +151,9 @@ class application():
         self.fileFeature.append(self.label_B5)
         self.fileFeature.append(self.label_B6)
         self.fileFeature.append(self.label_B7)
-        self.fileFeature.append(self.label_B8) 
+        self.fileFeature.append(self.label_B8)
+        self.fileFeature.append(self.label_B9)
+        self.fileFeature.append(self.label_B10) 
         self.cleaner(self.connectorFeature)
         self.placeFile()
     def untrust(self):
@@ -195,6 +197,7 @@ class application():
         self.table2.place(x=220,y=320)
         self.root.update()
     def placeFile(self):
+        
         self.label_B1.place(x=10,y=40)
         self.label_B2.place(x=10,y=120)
         self.label_B3.place(x=10,y=60)
@@ -203,6 +206,8 @@ class application():
         self.label_B6.place(x=10,y=140)
         self.label_B7.place(x=10,y=160)
         self.label_B8.place(x=10,y=180)
+        self.label_B9.place(x=220,y=30)
+        self.label_B10.place(x=220,y=290)
         self.root.update()
     def cleaner(self,listFeatures:list):
         for i in listFeatures:
