@@ -12,6 +12,7 @@ class database():
         self.hostname = gethostname()
         self.IP = gethostbyname(self.hostname)
         self.port = "80"
+        self.clientConnected = [] 
 
 
 

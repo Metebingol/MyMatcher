@@ -30,6 +30,7 @@ class server():
             object, [ipClient,portClient]= self.serverObject.accept()
         except:
             text.insert(END,"=>Server cannnot accept any client\n")
+        data.clientConnected.append([object,ipClient,portClient])
         text.insert(END,"=>Server accept the client succcesfully")
     def acceptThread(self,entry:Entry,data:database,text):
         function = thr(target=self.accept,args=(entry,data,text,))

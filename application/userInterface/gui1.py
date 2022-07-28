@@ -17,6 +17,8 @@ class guiConnector():
         for feature in self.data.filerFeature:
             feature.destroy()
         self.root.update()
+        # ---
+        # Server feature
         self.label_A1 = Label(self.root,text="Device Information:")
         self.data.connectorFeature.append(self.label_A1)
         self.label_A2 = Label(self.root,text=f"  Hostname: {self.data.hostname}")
@@ -37,14 +39,37 @@ class guiConnector():
         self.data.connectorFeature.append(self.button_A2)
         self.text = Text(self.root,width=25,height=15)
         self.data.connectorFeature.append(self.text)
+        # ---
+
+        # ---
+        # client feature
+        self.label_A6 = Label(self.root,text="  Hostname:")
+        self.data.connectorFeature.append(self.label_A6)
+        self.label_A7 = Label(self.root,text="  IP:")
+        self.data.connectorFeature.append(self.label_A7)
+        self.label_A8 = Label(self.root,text="  Port:")
+        self.data.connectorFeature.append(self.label_A8)
+        self.label_A9 = Label(self.root,text="Client:")
+        self.data.connectorFeature.append(self.label_A9)
+        self.button_A3 = Button(self.root,text="Make Client",width=10,bg="white")
+        self.data.connectorFeature.append(self.button_A3)
+        self.button_A4 = Button(self.root,text="Connect",width=10,bg="white")
+        self.data.connectorFeature.append(self.button_A4)
+        # ---
         self.place()
     def place(self):
-        self.label_A1.place(x=5,y=25)
+        self.label_A1.place(x=5,y=30)
         self.label_A2.place(x=5,y=55)
-        self.label_A3.place(x=5,y=85)
+        self.label_A3.place(x=5,y=80)
         self.label_A4.place(x=5,y=120)
-        self.label_A5.place(x=5,y=150)
-        self.entry_A1.place(x=60,y=155)
-        self.button_A1.place(x=10,y=180)
-        self.button_A2.place(x=100,y=180)
+        self.label_A5.place(x=5,y=145)
+        self.entry_A1.place(x=60,y=150)
+        self.button_A1.place(x=10,y=170)
+        self.button_A2.place(x=100,y=170)
+        self.label_A9.place(x=5,y=220)
+        self.label_A8.place(x=5,y=245)
+        self.label_A7.place(x=5,y=270)
+        self.label_A6.place(x=5,y=295)
+        self.button_A4.place(x=10,y=320)
+        self.button_A3.place(x=100,y=320)
         self.text.place(x=5,y=350)
