@@ -32,7 +32,7 @@ class server():
         except:
             text.insert(END,"=>Server cannnot accept any client\n")
         table.insert("",END,values=(gethostbyaddr(ipClient)[0],ipClient,portClient))
-        data.clientConnected.append([object,gethostbyaddr(ipClient),ipClient,portClient])
+        data.clientConnected.append([object,gethostbyaddr(ipClient)[0],ipClient,portClient])
         text.insert(END,"=>Server accept the client succcesfully\n")
     def acceptThread(self,entry:Entry,data:database,text,table:ttk.Treeview):
         function = thr(target=self.accept,args=(entry,data,text,table,))

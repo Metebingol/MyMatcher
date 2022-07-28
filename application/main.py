@@ -15,3 +15,4 @@ if __name__ == "__main__":
     data.guiRoot = root
     rootConfig.mainRootConfig(data.guiRoot)
     root.mainloop()
+    print(data.clientConnected)
