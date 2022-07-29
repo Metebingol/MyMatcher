@@ -39,6 +39,12 @@ class guiConnector():
         self.table2.heading("1",text="Hostname")
         self.table2.heading("2",text="IP")
         self.table2.heading("3",text="Port")
+        self.button_A6 = Button(self.root,text="Trust ")
+        self.data.connectorFeature.append(self.button_A6)
+        self.button_A7 = Button(self.root,text="UnTrust")
+        self.data.connectorFeature.append(self.button_A7)
+        self.button_A8 = Button(self.root,text="Save")
+        self.data.connectorFeature.append(self.button_A8)
         # ---
 
 
@@ -122,3 +128,6 @@ class guiConnector():
         self.text.place(x=5,y=350)
         self.table1.place(x=220,y=40)
         self.table2.place(x=220,y=320)
+        self.button_A6.place(x=720,y=270)
+        self.button_A7.place(x=710,y=550)
+        self.button_A8.place(x=670,y=550)
