@@ -14,5 +14,6 @@ class database():
         self.port = "80"
         self.clientConnected = [] 
         self.serverConnected = []
+        self.trustedConnected = []
 
 

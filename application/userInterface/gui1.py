@@ -1,4 +1,6 @@
 from tkinter import IntVar
+
+from requests import delete
 from database.database import database
 from tkinter import Checkbutton, Tk
 from tkinter import Label
@@ -9,12 +11,27 @@ from tkinter import StringVar
 from communcation.Networking import server,client
 from tkinter import Text
 from tkinter import NO
+from tkinter import END
 class guiConnector():
     def __init__(self,root:Tk,data:database) -> None:
         self.root = root
         self.data = data
         self.server = server()
         self.client = client()
+    def save(self):
+        with open("trusted.txt","w") as file:
+            for i in self.data.trustedConnected:
+                file.write(i+"\n")
+    def trust(self):
+        item=self.table1.item(self.table1.selection()[0])['values']
+        self.table2.insert("",END,values=item)
+        self.data.trustedConnected.append(item[0])
+        self.table1.delete(self.table1.selection()[0])
+    def untrust(self):
+        item=self.table2.item(self.table2.selection()[0])['values']
+        self.table1.insert("",END,values=item)
+        self.data.trustedConnected.remove(item[0])
+        self.table2.delete(self.table2.selection()[0])
     def build(self):
         for feature in self.data.filerFeature:
             feature.destroy()
@@ -39,12 +56,14 @@ class guiConnector():
         self.table2.heading("1",text="Hostname")
         self.table2.heading("2",text="IP")
         self.table2.heading("3",text="Port")
-        self.button_A6 = Button(self.root,text="Trust ")
+        self.button_A6 = Button(self.root,text="Trust ",command=self.trust)
         self.data.connectorFeature.append(self.button_A6)
-        self.button_A7 = Button(self.root,text="UnTrust")
+        self.button_A7 = Button(self.root,text="UnTrust",command=self.untrust)
         self.data.connectorFeature.append(self.button_A7)
-        self.button_A8 = Button(self.root,text="Save")
+        self.button_A8 = Button(self.root,text="Save",command = self.save)
         self.data.connectorFeature.append(self.button_A8)
+        self.data.connectorFeature.append(self.table1)
+        self.data.connectorFeature.append(self.table2)
         # ---
 
 
